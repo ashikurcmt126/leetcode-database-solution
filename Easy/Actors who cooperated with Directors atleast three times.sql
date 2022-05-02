@@ -1,3 +1,4 @@
+
 -- create
 CREATE TABLE ActorDirector (
   actor_id int,
@@ -18,4 +19,9 @@ VALUES
 	(2, 1, 6);
 	
 SELECT * FROM ActorDirector;
+
+SELECT actor_id, director_id from ActorDirector 
+where actor_id = director_id 
+group by actor_id, director_id 
+having count(actor_id)>=3
 
