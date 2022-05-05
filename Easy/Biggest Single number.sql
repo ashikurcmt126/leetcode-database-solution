@@ -30,3 +30,12 @@ having count(number)=1
 ) d
 order by d.number desc
 limit 1
+
+------------
+select max(d.number) from(
+select number, count(*)
+from num
+group by number 
+having count(number)=1
+) d
+
