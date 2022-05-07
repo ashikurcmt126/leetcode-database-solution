@@ -24,3 +24,12 @@ group by Email
 ) d
 where counter >1 
 group by d.Email;
+
+----Another solution----
+select Email from
+(
+  select Email, count(*) as counter
+  from Person 
+  group by Email
+  having count(Email)>1
+)a
