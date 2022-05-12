@@ -1,4 +1,3 @@
-
 -- create
 CREATE TABLE students (
   student_id int primary key,
@@ -46,6 +45,22 @@ VALUES
 	(2, 'Math'),
 	(1, 'Math');
 
+
+select * from examinations;
 select * from students;
 select * from subjects;
-select * from examinations;
+
+select a.student_id, a.student_name, a.subject_name, coalesce(counter, 0) as attended_exams
+from 
+(
+select student_id, student_name, subject_name from students 
+cross join subjects
+) a left join 
+(
+  select e.student_id, e.subject_name, count(*) as counter from examinations e
+  join subjects s
+  on e.subject_name = s.subject_name
+  group by e.subject_name, e.student_id
+)b on 
+a.student_id = b.student_id and a.subject_name = b.subject_name
+order by a.student_id, a.subject_name asc
